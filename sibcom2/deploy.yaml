@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,6 +21,6 @@ spec:
     spec:
       containers:
       - name: sibcom2
-        image: stillinbeta/sibcom2:1554062788
+        image: stillinbeta/sibcom2:1554063731
         ports:
         - containerPort: 8000
