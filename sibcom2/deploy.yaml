@@ -5,6 +5,8 @@ metadata:
   namespace: sibcom2
   labels:
     app: sibcom2
+  annotations:
+    flux.weave.works/automated: "true"
 spec:
   replicas: 2
   selector:
