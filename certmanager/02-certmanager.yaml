@@ -55,7 +55,8 @@ spec:
         spec:
           properties:
             acme:
-              description: ACME contains configuration specific to ACME Certificates.
+              description: |
+                ACME contains configuration specific to ACME Certificates.
                 Notably, this contains details on how the domain names listed on this
                 Certificate resource should be 'solved', i.e. mapping HTTP01 and DNS01
                 providers to DNS names.
@@ -64,8 +65,7 @@ spec:
                   items:
                     properties:
                       domains:
-                        description: Domains is the list of domains that this SolverConfig
-                          applies to.
+                        description: Domains is the list of domains that this SolverConfig applies to.
                         items:
                           type: string
                         type: array
@@ -99,7 +99,8 @@ spec:
                 implies that the 'signing' usage is set
               type: boolean
             issuerRef:
-              description: IssuerRef is a reference to the issuer for this certificate.
+              description: |
+                IssuerRef is a reference to the issuer for this certificate.
                 If the 'kind' field is not set, or set to 'Issuer', an Issuer resource
                 with the given name in the same namespace as the Certificate will
                 be used. If the 'kind' field is set to 'ClusterIssuer', a ClusterIssuer
@@ -114,7 +115,8 @@ spec:
               - name
               type: object
             keyAlgorithm:
-              description: KeyAlgorithm is the private key algorithm of the corresponding
+              description: |
+                KeyAlgorithm is the private key algorithm of the corresponding
                 private key for this certificate. If provided, allowed values are
                 either "rsa" or "ecdsa" If KeyAlgorithm is specified and KeySize is
                 not provided, key size of 256 will be used for "ecdsa" key algorithm
@@ -124,7 +126,8 @@ spec:
               - ecdsa
               type: string
             keySize:
-              description: KeySize is the key bit size of the corresponding private
+              description: |
+                KeySize is the key bit size of the corresponding private
                 key for this certificate. If provided, value must be between 2048
                 and 8192 inclusive when KeyAlgorithm is empty or is set to "rsa",
                 and value must be one of (256, 384, 521) when KeyAlgorithm is set
