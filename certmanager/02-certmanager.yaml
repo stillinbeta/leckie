@@ -7,22 +7,23 @@ metadata:
   name: certificates.certmanager.k8s.io
 spec:
   additionalPrinterColumns:
-  - JSONPath: .status.conditions[?(@.type==\"Ready\")].status
+  - JSONPath: ".status.conditions[?(@.type==\"Ready\")].status"
     name: Ready
     type: string
-  - JSONPath: .spec.secretName
+  - JSONPath: ".spec.secretName"
     name: Secret
     type: string
-  - JSONPath: .spec.issuerRef.name
+  - JSONPath: ".spec.issuerRef.name"
     name: Issuer
     priority: 1
     type: string
-  - JSONPath: .status.conditions[?(@.type==\"Ready\")].message
+  - JSONPath: ".status.conditions[?(@.type==\"Ready\")].message"
     name: Status
     priority: 1
     type: string
   - JSONPath: .metadata.creationTimestamp
-    description: CreationTimestamp is a timestamp representing the server time when
+    description: |
+      CreationTimestamp is a timestamp representing the server time when
       this object was created. It is not guaranteed to be set in happens-before order
       across separate operations. Clients may not set this value. It is represented
       in RFC3339 form and is in UTC.
