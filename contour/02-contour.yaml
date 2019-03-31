@@ -30,7 +30,7 @@ spec:
           name: contour
         name: contour
         command: ["contour"]
-        args: ["serve", "--incluster", "--envoy-external-http-port=80", "--envoy-external-https-port=443"]
+        args: ["serve", "--incluster", "--envoy-service-http-port=80", "--envoy-service-https-port=443"]
       - image: docker.io/envoyproxy/envoy:v1.9.0
         name: envoy
         ports:
