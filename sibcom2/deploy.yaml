@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sibcom2-web
+  namespace: sibcom2
+  labels:
+    app: sibcom2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sibcom2
+  template:
+    metadata:
+      namespace: sibcom2
+      labels:
+        app: sibcom2
+    spec:
+      containers:
+      - name: sibcom2
+        image: stillinbeta/sibcom2
+        ports:
+        - containerPort: 8000
