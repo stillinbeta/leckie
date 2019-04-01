@@ -21,6 +21,9 @@ spec:
         ports:
         - name: postgres
           containerPort: 6379
+        volumeMounts:
+          - mountPath: "/var/lib/postgres/data/"
+            name: postgres-data
         env:
         - name: PGDATA
           value: "/var/lib/postgres/data/pgdata"
@@ -29,6 +32,10 @@ spec:
             secretKeyRef:
               name: "db-credentials"
               key: "DB_PASS"
+      volumes:
+      - name: postgres-data
+        persistentVolumeClaim:
+          claimName: postgres
 ---
 kind: Service
 apiVersion: v1

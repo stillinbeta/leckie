@@ -26,6 +26,9 @@ spec:
         ports:
         - name: web
           containerPort: 3000
+        volumeMount:
+        - mountPath: "/mastodon/public"
+          name: mastodon-data
         envFrom:
         - configMapRef:
             name: mastodon-config
@@ -35,6 +38,11 @@ spec:
             name: smtp-credentials
         - secretRef:
             name: mastodon-secrets
+      volumes:
+      - name: mastodon-data
+        persistentVolumeClaim:
+          claimName: mastodon-data
+
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -104,3 +112,4 @@ spec:
             name: smtp-credentials
         - secretRef:
             name: mastodon-secrets
+
