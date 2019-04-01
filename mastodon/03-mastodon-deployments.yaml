@@ -26,7 +26,7 @@ spec:
         ports:
         - name: web
           containerPort: 3000
-        volumeMount:
+        volumeMounts:
         - mountPath: "/mastodon/public"
           name: mastodon-data
         envFrom:
@@ -41,7 +41,7 @@ spec:
       volumes:
       - name: mastodon-data
         persistentVolumeClaim:
-          claimName: mastodon-data
+          claimName: mastodon
 
 ---
 kind: Deployment
