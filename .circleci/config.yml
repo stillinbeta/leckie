@@ -1,0 +1,8 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: alpine/git
+    steps:
+      - checkout
+      - run: ./publish.sh
