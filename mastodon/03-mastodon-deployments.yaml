@@ -5,6 +5,8 @@ metadata:
   name: web
   namespace: mastodon
 spec:
+  strategy:
+    type: Recreate # because the volume claim is exclusive
   selector:
     matchLabels:
       app: web
@@ -13,8 +15,6 @@ spec:
       labels:
         app: web
     spec:
-      strategy:
-        type: Recreate # because the volume claim is exclusive
       containers:
       - name: web
         image: tootsuite/mastodon:v2.7.4

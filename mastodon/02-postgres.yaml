@@ -5,6 +5,8 @@ metadata:
   name: postgres
   namespace: mastodon
 spec:
+  strategy:
+    type: Recreate # because the volume claim is exclusive
   selector:
     matchLabels:
       app: postgres
@@ -15,8 +17,6 @@ spec:
         app: postgres
         role: master
     spec:
-      strategy:
-        type: Recreate # because the volume claim is exclusive
       containers:
       - name: postgres
         image: postgres:10.5-alpine
