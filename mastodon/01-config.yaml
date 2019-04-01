@@ -1,4 +1,3 @@
-
 ---
 kind: ConfigMap
 apiVersion: v1
@@ -9,13 +8,13 @@ data:
   # You may set REDIS_URL instead for more advanced options
   # You may also set REDIS_NAMESPACE to share Redis between multiple Mastodon servers
   REDIS_HOST: redis.mastodon.svc.cluster.local
-  REDIS_PORT: 6379
+  REDIS_PORT: "6379"
   # You may set DATABASE_URL instead for more advanced options
   DB_HOST: postgres.mastodon.svc.cluster.local
   DB_USER: postgres
   DB_NAME: postgres
   # DB_PASS: # db_secret
-  DB_PORT: 5432
+  DB_PORT: "5432"
   # Optional ElasticSearch configuration
   # ES_ENABLED: true
   # ES_HOST: es
@@ -70,7 +69,7 @@ data:
   # then set SMTP_AUTH_METHOD and SMTP_OPENSSL_VERIFY_MODE to 'none' and
   # *comment* SMTP_LOGIN and SMTP_PASSWORD (leaving them blank is not enough).
   SMTP_SERVER: smtp.mailgun.org
-  SMTP_PORT: 587
+  SMTP_PORT: "587"
   SMTP_LOGIN: postmaster@gayhorse.club
   # SMTP_PASSWORD: # smtp_secret
   SMTP_FROM_ADDRESS: notifications@gayhorse.club
@@ -152,7 +151,7 @@ data:
 
   # Cluster number setting for streaming API server.
   # If you comment out following line, cluster number will be `numOfCpuCores - 1`.
-  STREAMING_CLUSTER_NUM: 1
+  STREAMING_CLUSTER_NUM: "1"
 
   # Docker mastodon user
   # If you use Docker, you may want to assign UID/GID manually.
