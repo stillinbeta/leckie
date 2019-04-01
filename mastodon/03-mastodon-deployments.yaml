@@ -28,7 +28,7 @@ spec:
           containerPort: 3000
         volumeMounts:
         - mountPath: "/mastodon/public"
-          name: mastodon-data
+          name: mastodon-public
         envFrom:
         - configMapRef:
             name: mastodon-config
@@ -39,9 +39,9 @@ spec:
         - secretRef:
             name: mastodon-secrets
       volumes:
-      - name: mastodon-data
+      - name: mastodon-public
         persistentVolumeClaim:
-          claimName: mastodon
+          claimName: mastodon-public
 
 ---
 kind: Deployment
