@@ -29,8 +29,12 @@ spec:
         - name: web
           containerPort: 3000
         volumeMounts:
-        - mountPath: "/mastodon/public"
+        - mountPath: "/mastodon/public/assets"
           name: mastodon-public
+          subPath: "assets"
+        - mountPath: "/mastodon/public/system"
+          name: mastodon-public
+          subPath: "system"
         envFrom:
         - configMapRef:
             name: mastodon-config
