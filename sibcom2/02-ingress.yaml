@@ -3,7 +3,15 @@ kind: Ingress
 metadata:
   name: sibcom2-ingress
   namespace: sibcom2
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: "letsencrypt-staging"
 spec:
+  tls:
+    - secretName: sibcom2
+      hosts:
+      - stillinbeta.com
+      - www.stillinbeta.com
   rules:
   - host: stillinbeta.com
     http:
@@ -11,3 +19,10 @@ spec:
       - backend:
           serviceName: sibcom2-service
           servicePort: 80
+  - host: www.stillinbeta.com
+    http:
+      paths:
+      - backend:
+          serviceName: sibcom2-service
+          servicePort: 80
+
