@@ -1,0 +1,100 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: web
+  namespace: mastodon
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: tootsuite/mastodon:v2.5.0
+        command:
+          - bundle
+          - exec
+          - rails
+          - server
+          - --port=3000
+          - --binding=0.0.0.0
+        ports:
+        - name: web
+          containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: mastodon-config
+        - secretRef:
+            name: db-credentials
+        - secretRef:
+            name: smtp-credentials
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: streaming
+  namespace: mastodon
+spec:
+  selector:
+    matchLabels:
+      app: streaming
+  template:
+    metadata:
+      labels:
+        app: streaming
+    spec:
+      containers:
+      - name: streaming
+        image: tootsuite/mastodon:v2.5.0
+        command: ["yarn", "start"]
+        ports:
+        - name: streaming
+          containerPort: 4000
+        env:
+        - name: REDIS_URL
+          value: redis://redis.mastodon.svc.cluster.local:6379
+        envFrom:
+        - configMapRef:
+            name: mastodon-config
+        - secretRef:
+            name: db-credentials
+        - secretRef:
+            name: smtp-credentials
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: worker
+  namespace: mastodon
+spec:
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: tootsuite/mastodon:v2.5.0
+        command:
+          - bundle
+          - exec
+          - sidekiq
+          - -q default
+          - -q mailers
+          - -q pull
+          - -q push
+        envFrom:
+        - configMapRef:
+            name: mastodon-config
+        - secretRef:
+            name: db-credentials
+        - secretRef:
+            name: smtp-credentials

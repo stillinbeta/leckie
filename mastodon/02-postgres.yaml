@@ -1,0 +1,43 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: postgres
+  namespace: mastodon
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+      role: master
+  template:
+    metadata:
+      labels:
+        app: postgres
+        role: master
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:11.2-alpine
+        ports:
+        - name: postgres
+          containerPort: 6379
+        env:
+          PGDATA: "/var/lib/postgres/data/pgdata"
+          POSTGRES_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: "db-credentials"
+                key: "DB_PASS"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres
+  namespace: mastodon
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres
+    role: master

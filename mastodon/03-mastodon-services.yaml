@@ -1,0 +1,24 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-ingress
+  namespace: mastodon
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: web
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: streaming-ingress
+  namespace: mastodon
+spec:
+  ports:
+  - port: 4000
+    targetPort: 4000
+  selector:
+    app: streaming

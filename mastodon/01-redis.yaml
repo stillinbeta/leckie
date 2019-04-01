@@ -1,0 +1,36 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: redis
+  namespace: mastodon
+spec:
+  selector:
+    matchLabels:
+      app: redis
+      role: master
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: master
+    spec:
+      containers:
+      - name: redis
+        image: redis:4-alpine3.8
+        ports:
+        - name: redis
+          containerPort: 6379
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+  namespace: mastodon
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: redis
+    role: master
