@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: tootsuite/mastodon:v2.5.0
+        image: tootsuite/mastodon:v2.7.4
         command:
           - bundle
           - exec
@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
       - name: streaming
-        image: tootsuite/mastodon:v2.5.0
+        image: tootsuite/mastodon:v2.7.4
         command: ["yarn", "start"]
         ports:
         - name: streaming
@@ -86,7 +86,7 @@ spec:
     spec:
       containers:
       - name: worker
-        image: tootsuite/mastodon:v2.5.0
+        image: tootsuite/mastodon:v2.7.4
         command:
           - bundle
           - exec
