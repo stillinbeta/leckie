@@ -24,3 +24,16 @@ spec:
     requests:
       storage: 6Gi
   storageClassName: do-block-storage
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mastodon-public
+  namespace: mastodon
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 6Gi
+  storageClassName: do-block-storage
