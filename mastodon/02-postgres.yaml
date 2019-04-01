@@ -22,12 +22,13 @@ spec:
         - name: postgres
           containerPort: 6379
         env:
-          PGDATA: "/var/lib/postgres/data/pgdata"
-          POSTGRES_PASSWORD:
-            valueFrom:
-              secretKeyRef:
-                name: "db-credentials"
-                key: "DB_PASS"
+        - name: PGDATA
+          value: "/var/lib/postgres/data/pgdata"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: "db-credentials"
+              key: "DB_PASS"
 ---
 kind: Service
 apiVersion: v1
