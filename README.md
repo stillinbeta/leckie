@@ -7,3 +7,7 @@ All manifests published into the private version of this repo are picked up by [
 [leckie]: https://www.annleckie.com/
 [flux]: https://github.com/weaveworks/flux
 
+## Structure
+
+* [`apps`](/apps) contains frontend apps available on the cluster
+* [`infra`](/infra) contains applications that help the cluster function properly
