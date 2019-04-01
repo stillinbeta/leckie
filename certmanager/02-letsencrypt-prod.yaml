@@ -9,4 +9,4 @@ spec:
     http01: {}
     privateKeySecretRef:
       name: letsencrypt-prod
-    server: https://acme-v01.api.letsencrypt.org/directory
+    server: https://acme-v02.api.letsencrypt.org/directory
