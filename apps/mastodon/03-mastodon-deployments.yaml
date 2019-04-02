@@ -71,9 +71,6 @@ spec:
         ports:
         - name: streaming
           containerPort: 4000
-        env:
-        - name: REDIS_URL
-          value: redis://redis.mastodon.svc.cluster.local:6379
         envFrom:
         - configMapRef:
             name: mastodon-config
@@ -101,14 +98,11 @@ spec:
       containers:
       - name: worker
         image: tootsuite/mastodon:v2.7.4
-        command:
-          - bundle
-          - exec
-          - sidekiq
-          - -q default
-          - -q mailers
-          - -q pull
-          - -q push
+        command: ["bundle", "exec", "sidekiq",
+          "-q", "default",
+          "-q", "mailers",
+          "-q", "pull",
+          "-q", "push"]
         envFrom:
         - configMapRef:
             name: mastodon-config
