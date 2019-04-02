@@ -44,6 +44,26 @@ spec:
             name: smtp-credentials
         - secretRef:
             name: mastodon-secrets
+      - name: worker
+        image: tootsuite/mastodon:v2.7.4
+        command: ["bundle", "exec", "sidekiq",
+          "-q", "default",
+          "-q", "mailers",
+          "-q", "pull",
+          "-q", "push"]
+        volumeMounts:
+        - mountPath: "/mastodon/public/system"
+          name: mastodon-public
+          subPath: "system"
+        envFrom:
+        - configMapRef:
+            name: mastodon-config
+        - secretRef:
+            name: db-credentials
+        - secretRef:
+            name: smtp-credentials
+        - secretRef:
+            name: mastodon-secrets
       volumes:
       - name: mastodon-public
         persistentVolumeClaim:
@@ -80,36 +100,3 @@ spec:
             name: smtp-credentials
         - secretRef:
             name: mastodon-secrets
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  name: worker
-  namespace: mastodon
-spec:
-  selector:
-    matchLabels:
-      app: worker
-  template:
-    metadata:
-      labels:
-        app: worker
-    spec:
-      containers:
-      - name: worker
-        image: tootsuite/mastodon:v2.7.4
-        command: ["bundle", "exec", "sidekiq",
-          "-q", "default",
-          "-q", "mailers",
-          "-q", "pull",
-          "-q", "push"]
-        envFrom:
-        - configMapRef:
-            name: mastodon-config
-        - secretRef:
-            name: db-credentials
-        - secretRef:
-            name: smtp-credentials
-        - secretRef:
-            name: mastodon-secrets
-
