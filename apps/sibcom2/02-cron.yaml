@@ -14,7 +14,7 @@ spec:
         spec:
           containers:
           - name: updater
-            image: stillinbeta/sibcom2:1554396241
+            image: stillinbeta/sibcom2:1554402273
             command: ["/updater"]
             envFrom:
             - secretRef:
