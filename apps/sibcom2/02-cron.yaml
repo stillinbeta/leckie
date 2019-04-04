@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -13,8 +14,8 @@ spec:
         spec:
           containers:
           - name: updater
-            image: stillinbeta/sibcom2:1554392886 
-            command: [ "/updater" ]
+            image: stillinbeta/sibcom2:1554396241
+            command: ["/updater"]
             envFrom:
             - secretRef:
                 name: "updater-secret"
