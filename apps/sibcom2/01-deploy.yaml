@@ -24,3 +24,6 @@ spec:
         image: stillinbeta/sibcom2:1554433377
         ports:
         - containerPort: 8000
+        env:
+        - name: "REDIS_URL"
+          value: "redis://redis.sibcom2.svc.cluster.local:6379"
