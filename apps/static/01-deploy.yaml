@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,5 +17,5 @@ spec:
         name: static
     spec:
       containers:
-      - name: nginx 
-        image: stillinbeta/static-files:1554588830
+      - name: nginx
+        image: stillinbeta/static-files:1554591092
