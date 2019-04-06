@@ -11,9 +11,9 @@ spec:
   tls:
     - secretName: static
       hosts:
-      - static.stillinbeta
+      - static.stillinbeta.com
   rules:
-  - host: static
+  - host: static.stillinbeta.com
     http:
       paths:
       - backend:
