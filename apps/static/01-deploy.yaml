@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static
+  namespace: static
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: static
+  template:
+    metadata:
+      labels:
+        name: static
+    spec:
+      containers:
+      - name: git-sync
+        image: k8s.gcr.io/git-sync:v3.0.1
+        volumeMounts:
+        - name: static-files
+          mountPath: /tmp/git/static
+        env:
+        - name: GIT_SYNC_REPO
+          value: https://github.com/stillinbeta/static.git
+        - name: GIT_SYNC_DEST
+          value: static
+      - name: nginx 
+        image: nginx:1.15-alpine
+        volumeMounts:
+        - name: static-files
+          mountPath: /usr/share/nginx/html/files
+      volumes:
+      - name: static-files
