@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: static
   namespace: static
+  annotations:
+    flux.weave.works/automated: "true"
 spec:
   replicas: 1
   selector:
@@ -15,4 +17,4 @@ spec:
     spec:
       containers:
       - name: nginx 
-        image: stillinbeta/static-files
+        image: stillinbeta/static-files:1554588830
