@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: contour
+  name: contour
+  namespace: heptio-contour
+spec:
+  clusterIP: None
+  ports:
+  - port: 8002
+    name: metrics
+    protocol: TCP
+  - port: 9102
+    name: statsd-exporter
+    protocol: TCP
+  selector:
+    app: contour
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    prometheus: kube-prometheus
+  name: contour
+  namespace: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: contour
+  namespaceSelector:
+    matchNames:
+      - heptio-contour
+  endpoints:
+  - targetPort: 8002
+    interval: 30s
+    path: /stats/prometheus
+  - targetPort: 9102
+    interval: 30s

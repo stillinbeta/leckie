@@ -1,3 +1,4 @@
+---
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
@@ -15,11 +16,6 @@ spec:
     metadata:
       labels:
         app: contour
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8002"
-        prometheus.io/path: "/stats"
-        prometheus.io/format: "prometheus"
     spec:
       hostNetwork: true
       containers:
@@ -40,6 +36,10 @@ spec:
         - containerPort: 443
           hostPort: 443
           name: https
+        - containerPort: 8002
+          hostPort: 8002
+          name: metrics
+          protocol: TCP
         command: ["envoy"]
         args:
         - --config-path /config/contour.json
@@ -60,6 +60,19 @@ spec:
           preStop:
             exec:
               command: ["wget", "-qO-", "http://localhost:9001/healthcheck/fail"] 
+      - name: statsd-sink
+        image: prom/statsd-exporter:v0.6.0
+        command: 
+            - "/bin/statsd_exporter"
+        args:
+            - "-statsd.mapping-config=/etc/statsd/statsd.yaml"
+        ports:
+        - containerPort: 9102
+          protocol: TCP
+          name: metrics
+        volumeMounts:
+        - name: statsd
+          mountPath: /etc/statsd
       initContainers:
       - image: gcr.io/heptio-images/contour:v0.10.0
         imagePullPolicy: Always
@@ -79,7 +92,11 @@ spec:
       volumes:
       - name: contour-config
         emptyDir: {}
+      - name: statsd
+        configMap:
+          name: envoy-statsd
       dnsPolicy: ClusterFirst
       serviceAccountName: contour
       terminationGracePeriodSeconds: 30
+
 ---
