@@ -9,8 +9,9 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - port: 8002
+  - port: 8010
     name: metrics
+    protocol: TCP
   selector:
     app: contour
 ---
@@ -22,11 +23,15 @@ metadata:
   name: contour
   namespace: prometheus
 spec:
+
   endpoints:
-  - targetPort: 8002
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    targetPort: 8010
+    scheme: https
+    tlsConfig:
+      insecureSkipVerify: true
     interval: 30s
     path: /stats/prometheus
-  jobLabel: contour
   selector:
     matchLabels:
       app: contour

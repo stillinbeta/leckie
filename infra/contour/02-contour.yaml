@@ -138,7 +138,7 @@ spec:
         # Uncomment the statsd-enable to enable statsd metrics
         - --statsd-enabled
         # Uncomment to set a custom stats emission address and port
-        - --stats-address=0.0.0.0
+        - --stats-address=127.0.0.1
         - --stats-port=8002
         - /config/contour.json
         volumeMounts:
