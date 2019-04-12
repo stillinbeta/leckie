@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -5,9 +6,8 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: kube-state-metrics
-  annotations:
-    prometheus.io/scrape: 'true'
 spec:
+  clusterIP: None
   ports:
   - name: http-metrics
     port: 8080
@@ -19,3 +19,25 @@ spec:
     protocol: TCP
   selector:
     k8s-app: kube-state-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    prometheus: kube-prometheus
+  name: kube-state-metrics
+  namespace: prometheus
+spec:
+  endpoints:
+  - targetPort: http-metrics
+    interval: 30s
+    path: /metrics
+  - targetPort: telemetry
+    interval: 30s
+    path: /metrics
+  selector:
+    matchLabels:
+      k8s-app: kube-state-metrics
+  namespaceSelector:
+    matchNames:
+      - kube-system
