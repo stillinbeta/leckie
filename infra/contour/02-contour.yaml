@@ -17,6 +17,7 @@ spec:
       labels:
         app: contour
     spec:
+      hostNetwork: true
       containers:
       - image: gcr.io/heptio-images/contour:v0.10.0
         imagePullPolicy: Always
@@ -66,6 +67,67 @@ spec:
           preStop:
             exec:
               command: ["wget", "-qO-", "http://localhost:9001/healthcheck/fail"] 
+      # - args:
+      #   - --logtostderr
+      #   - --secure-listen-address=$(IP):8002
+      #   - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+      #   - --upstream=http://127.0.0.1:8002/
+      #   env:
+      #   - name: IP
+      #     valueFrom:
+      #       fieldRef:
+      #         fieldPath: status.podIP
+      #   image: quay.io/coreos/kube-rbac-proxy:v0.4.1
+      #   name: kube-rbac-proxy-contour
+      #   ports:
+      #   - containerPort: 8002
+      #     hostPort: 8002
+      #     name: https
+      #   resources:
+      #     limits:
+      #       cpu: 20m
+      #       memory: 40Mi
+      #     requests:
+      #       cpu: 10m
+      #       memory: 20Mi
+
+      # - name: statsd-sink
+      #   image: prom/statsd-exporter:v0.6.0
+      #   command: 
+      #       - "/bin/statsd_exporter"
+      #   args:
+      #       - "--web.listen-address=127.0.0.1:9102"
+      #       - "-statsd.mapping-config=/etc/statsd/statsd.yaml"
+      #   ports:
+      #   - containerPort: 9102
+      #     protocol: TCP
+      #     name: metrics
+      #   volumeMounts:
+      #   - name: statsd
+      #     mountPath: /etc/statsd
+      - args:
+        - --logtostderr
+        - --secure-listen-address=$(IP):8010
+        - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+        - --upstream=http://127.0.0.1:8002/
+        env:
+        - name: IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        image: quay.io/coreos/kube-rbac-proxy:v0.4.1
+        name: kube-rbac-proxy-envoy
+        ports:
+        - containerPort: 8010
+          hostPort: 8010
+          name: https
+        resources:
+          limits:
+            cpu: 20m
+            memory: 40Mi
+          requests:
+            cpu: 10m
+            memory: 20Mi
       initContainers:
       - image: gcr.io/heptio-images/contour:v0.10.0
         imagePullPolicy: Always
