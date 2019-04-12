@@ -17,7 +17,6 @@ spec:
       labels:
         app: contour
     spec:
-      hostNetwork: true
       containers:
       - image: gcr.io/heptio-images/contour:v0.10.0
         imagePullPolicy: Always
@@ -119,7 +118,6 @@ spec:
         name: kube-rbac-proxy-envoy
         ports:
         - containerPort: 8010
-          hostPort: 8010
           name: https
         resources:
           limits:
