@@ -12,9 +12,6 @@ spec:
   - port: 8002
     name: metrics
     protocol: TCP
-  - port: 9102
-    name: statsd-exporter
-    protocol: TCP
   selector:
     app: contour
 ---
@@ -33,8 +30,8 @@ spec:
     matchNames:
       - heptio-contour
   endpoints:
-  - targetPort: 8002
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    targetPort: 8002
+    scheme: https
     interval: 30s
     path: /stats/prometheus
-  - targetPort: 9102
-    interval: 30s

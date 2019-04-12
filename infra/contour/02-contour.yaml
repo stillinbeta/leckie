@@ -31,8 +31,8 @@ spec:
         - --incluster
         - --envoy-service-http-port=80
         - --envoy-service-https-port=443
-        - --http-address=127.0.0.1
-        - --http-port=8000
+        # - --http-address=127.0.0.1
+        # - --http-port=8000
       - image: docker.io/envoyproxy/envoy:v1.9.0
         name: envoy
         ports:
@@ -42,10 +42,10 @@ spec:
         - containerPort: 443
           hostPort: 443
           name: https
-        - containerPort: 8000
-          hostPort: 8000
-          name: metrics
-          protocol: TCP
+        # - containerPort: 8002
+        #   hostPort: 8002
+        #   name: metrics
+        #   protocol: TCP
         command: ["envoy"]
         args:
         - --config-path /config/contour.json
@@ -67,6 +67,44 @@ spec:
           preStop:
             exec:
               command: ["wget", "-qO-", "http://localhost:9001/healthcheck/fail"] 
+      # - args:
+      #   - --logtostderr
+      #   - --secure-listen-address=$(IP):8002
+      #   - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+      #   - --upstream=http://127.0.0.1:8002/
+      #   env:
+      #   - name: IP
+      #     valueFrom:
+      #       fieldRef:
+      #         fieldPath: status.podIP
+      #   image: quay.io/coreos/kube-rbac-proxy:v0.4.1
+      #   name: kube-rbac-proxy-contour
+      #   ports:
+      #   - containerPort: 8002
+      #     hostPort: 8002
+      #     name: https
+      #   resources:
+      #     limits:
+      #       cpu: 20m
+      #       memory: 40Mi
+      #     requests:
+      #       cpu: 10m
+      #       memory: 20Mi
+
+      # - name: statsd-sink
+      #   image: prom/statsd-exporter:v0.6.0
+      #   command: 
+      #       - "/bin/statsd_exporter"
+      #   args:
+      #       - "--web.listen-address=127.0.0.1:9102"
+      #       - "-statsd.mapping-config=/etc/statsd/statsd.yaml"
+      #   ports:
+      #   - containerPort: 9102
+      #     protocol: TCP
+      #     name: metrics
+      #   volumeMounts:
+      #   - name: statsd
+      #     mountPath: /etc/statsd
       - args:
         - --logtostderr
         - --secure-listen-address=$(IP):8002
@@ -78,47 +116,10 @@ spec:
             fieldRef:
               fieldPath: status.podIP
         image: quay.io/coreos/kube-rbac-proxy:v0.4.1
-        name: kube-rbac-proxy-contour
+        name: kube-rbac-proxy-envoy
         ports:
         - containerPort: 8002
           hostPort: 8002
-          name: https
-        resources:
-          limits:
-            cpu: 20m
-            memory: 40Mi
-          requests:
-            cpu: 10m
-            memory: 20Mi
-
-      - name: statsd-sink
-        image: prom/statsd-exporter:v0.6.0
-        command: 
-            - "/bin/statsd_exporter"
-        args:
-            - "-statsd.mapping-config=/etc/statsd/statsd.yaml"
-        ports:
-        - containerPort: 9102
-          protocol: TCP
-          name: metrics
-        volumeMounts:
-        - name: statsd
-          mountPath: /etc/statsd
-      - args:
-        - --logtostderr
-        - --secure-listen-address=$(IP):9102
-        - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
-        - --upstream=http://127.0.0.1:9102/
-        env:
-        - name: IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
-        image: quay.io/coreos/kube-rbac-proxy:v0.4.1
-        name: kube-rbac-proxy-envoy
-        ports:
-        - containerPort: 9102
-          hostPort: 9102
           name: https
         resources:
           limits:
