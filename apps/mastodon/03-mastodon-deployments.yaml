@@ -64,10 +64,35 @@ spec:
             name: smtp-credentials
         - secretRef:
             name: mastodon-secrets
+      initContainers:
+      - name: db-migrations
+        image: tootsuite/mastodon:v2.7.4
+        command:
+          - bundle
+          - exec
+          - rake
+          - db:migrate
+        volumeMounts:
+        - mountPath: "/mastodon/public/assets"
+          name: mastodon-public
+          subPath: "assets"
+        - mountPath: "/mastodon/public/system"
+          name: mastodon-public
+          subPath: "system"
+        envFrom:
+        - configMapRef:
+            name: mastodon-config
+        - secretRef:
+            name: db-credentials
+        - secretRef:
+            name: smtp-credentials
+        - secretRef:
+            name: mastodon-secrets
       volumes:
       - name: mastodon-public
         persistentVolumeClaim:
           claimName: mastodon-public
+
 
 ---
 kind: Deployment
