@@ -23,6 +23,7 @@ metadata:
   name: contour
   namespace: prometheus
 spec:
+
   endpoints:
   - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     targetPort: 8010
@@ -34,6 +35,6 @@ spec:
   selector:
     matchLabels:
       app: contour
-    namespaceSelector:
-      matchNames:
-        - heptio-contour
+  namespaceSelector:
+    matchNames:
+      - heptio-contour
