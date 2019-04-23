@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: static
-  name: static-service
+  namespace: puccinia
+  name: puccinia-service
 spec:
   selector:
-    name: static
+    name: puccinia
   nodePort: 34340
   ports:
     - protocol: TCP
