@@ -18,4 +18,4 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: stillinbeta/puccinia:1556058106
+        image: stillinbeta/puccinia:1556058511
