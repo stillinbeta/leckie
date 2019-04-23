@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: puccinia
+  namespace: puccinia
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: puccinia
+  template:
+    metadata:
+      labels:
+        name: puccinia
+    spec:
+      containers:
+      - name: nginx
+        image: stillinbeta/puccinia:1556054750
