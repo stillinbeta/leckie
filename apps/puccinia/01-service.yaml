@@ -7,7 +7,9 @@ metadata:
 spec:
   selector:
     name: puccinia
-  nodePort: 34340
+  type: NodePort
   ports:
     - protocol: TCP
+      nodePort: 30434
+      port: 12345
       targetPort: 12345
