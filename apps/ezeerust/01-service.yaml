@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ezeerust
+  name: ezeerust
+spec:
+  selector:
+    name: ezeerust
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ezeerust
+  namespace: ezeerust
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ezeerust
+  template:
+    metadata:
+      labels:
+        name: ezeerust
+    spec:
+      containers:
+      - name: nginx
+        image: "stillinbeta/ezeerust:1556830077"
