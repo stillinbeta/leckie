@@ -18,4 +18,4 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: "stillinbeta/ezeerust:1556832963"
+        image: "stillinbeta/ezeerust:1556895131"
