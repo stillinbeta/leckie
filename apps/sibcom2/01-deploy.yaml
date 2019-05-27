@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: sibcom2
-        image: stillinbeta/sibcom2:1557345399
+        image: stillinbeta/sibcom2:1558963430
         ports:
         - containerPort: 8000
         env:
