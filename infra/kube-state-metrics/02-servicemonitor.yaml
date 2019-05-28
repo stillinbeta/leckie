@@ -30,10 +30,10 @@ metadata:
 spec:
   endpoints:
   - targetPort: http-metrics
-    interval: 30s
+    interval: 60s
     path: /metrics
   - targetPort: telemetry
-    interval: 30s
+    interval: 60s
     path: /metrics
   selector:
     matchLabels:

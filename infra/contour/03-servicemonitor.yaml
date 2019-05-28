@@ -29,7 +29,7 @@ spec:
     scheme: https
     tlsConfig:
       insecureSkipVerify: true
-    interval: 30s
+    interval: 60s
     path: /stats/prometheus
   selector:
     matchLabels:

@@ -23,7 +23,7 @@ metadata:
   namespace: prometheus
 spec:
   endpoints:
-  - interval: 30s
+  - interval: 60s
     targetPort: metrics
   jobLabel: flux
   selector:
