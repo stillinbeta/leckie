@@ -18,4 +18,4 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: stillinbeta/static-files:1554734606
+        image: stillinbeta/static-files:1576256891
