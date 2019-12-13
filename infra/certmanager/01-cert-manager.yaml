@@ -23,7 +23,7 @@ spec:
     name: Age
     type: date
   group: cert-manager.io
-  preserveUnknownFields: false
+  # preserveUnknownFields: false
   names:
     kind: CertificateRequest
     listKind: CertificateRequestList
@@ -217,7 +217,7 @@ spec:
     name: Age
     type: date
   group: cert-manager.io
-  preserveUnknownFields: false
+  # preserveUnknownFields: false
   names:
     kind: Certificate
     listKind: CertificateList
@@ -457,7 +457,7 @@ spec:
     name: Age
     type: date
   group: acme.cert-manager.io
-  preserveUnknownFields: false
+  # preserveUnknownFields: false
   names:
     kind: Challenge
     listKind: ChallengeList
@@ -830,7 +830,7 @@ spec:
                             use a SecretKeySelector to reference a Secret resource.
                             For details on the schema of this field, consult the webhook
                             provider implementation's documentation.
-                          x-kubernetes-preserve-unknown-fields: true
+                          # x-kubernetes-preserve-unknown-fields: true
                         groupName:
                           description: The API group name that should be used when
                             POSTing ChallengePayload resources to the webhook apiserver.
@@ -1846,7 +1846,7 @@ spec:
     name: Age
     type: date
   group: cert-manager.io
-  preserveUnknownFields: false
+  # preserveUnknownFields: false
   names:
     kind: ClusterIssuer
     listKind: ClusterIssuerList
@@ -2243,7 +2243,7 @@ spec:
                                   to reference a Secret resource. For details on the
                                   schema of this field, consult the webhook provider
                                   implementation's documentation.
-                                x-kubernetes-preserve-unknown-fields: true
+                                # x-kubernetes-preserve-unknown-fields: true
                               groupName:
                                 description: The API group name that should be used
                                   when POSTing ChallengePayload resources to the webhook
@@ -3544,7 +3544,7 @@ spec:
     name: Age
     type: date
   group: cert-manager.io
-  preserveUnknownFields: false
+  # preserveUnknownFields: false
   names:
     kind: Issuer
     listKind: IssuerList
@@ -3941,7 +3941,7 @@ spec:
                                   to reference a Secret resource. For details on the
                                   schema of this field, consult the webhook provider
                                   implementation's documentation.
-                                x-kubernetes-preserve-unknown-fields: true
+                                # x-kubernetes-preserve-unknown-fields: true
                               groupName:
                                 description: The API group name that should be used
                                   when POSTing ChallengePayload resources to the webhook
@@ -5246,7 +5246,7 @@ spec:
     name: Age
     type: date
   group: acme.cert-manager.io
-  preserveUnknownFields: false
+  # preserveUnknownFields: false
   names:
     kind: Order
     listKind: OrderList
