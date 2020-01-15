@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sendwavedemo-web
+  namespace: sendwavedemo
+  labels:
+    app: sendwavedemo
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sendwavedemo
+  template:
+    metadata:
+      namespace: sendwavedemo
+      labels:
+        app: sendwavedemo
+    spec:
+      containers:
+      - name: sendwavedemo
+        image: stillinbeta/sendwavedemo::latest
+        ports:
+        - containerPort: 8000

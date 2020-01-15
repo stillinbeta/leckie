@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sendwavedemo-ingress
+  namespace: sendwavedemo
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - secretName: sendwavedemo
+      hosts:
+      - sendwave.stillinbeta.com
+  rules:
+  - host: sendwave.stillinbeta.com
+    http:
+      paths:
+      - backend:
+          serviceName: sendwavedemo-service
+          servicePort: 80
