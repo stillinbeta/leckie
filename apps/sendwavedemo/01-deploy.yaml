@@ -21,6 +21,6 @@ spec:
     spec:
       containers:
       - name: sendwavedemo
-        image: stillinbeta/sendwavedemo::latest
+        image: stillinbeta/sendwavedemo:latest
         ports:
         - containerPort: 8000
