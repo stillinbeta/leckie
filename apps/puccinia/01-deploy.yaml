@@ -5,7 +5,7 @@ metadata:
   name: puccinia
   namespace: puccinia
   annotations:
-    flux.weave.works/automated: "true"
+    flux.weave.works/automated: "false"
 spec:
   replicas: 1
   selector:
